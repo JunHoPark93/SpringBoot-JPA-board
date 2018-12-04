@@ -52,7 +52,11 @@ foreach문을 돌릴수 있게 만드는 인터페이스이고 많은 자료구�
 
 참고) JpaRepository 는 CrudRepository보다 조금 더 확장된 기능을 갖는다.
  
- 
+
+saveAndFlush
+
+@Transaction(readOnly=false)
+
  
  
  
