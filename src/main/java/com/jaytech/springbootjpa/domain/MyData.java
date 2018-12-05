@@ -17,7 +17,7 @@ public class MyData {
     private String mail;
 
     @Column(nullable = true)
-    private String age;
+    private Integer age;
 
     @Column(nullable = true)
     private String memo;
@@ -46,11 +46,11 @@ public class MyData {
         this.mail = mail;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
