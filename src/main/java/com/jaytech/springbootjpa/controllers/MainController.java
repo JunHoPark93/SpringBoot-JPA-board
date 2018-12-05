@@ -6,12 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 
 @Controller
@@ -49,7 +47,6 @@ public class MainController {
     public String edit(@PathVariable int id, Model model) {
         MyData myData = myDataRepository.findById((long)id)
                 .orElseThrow(() -> new NullPointerException());
-
         model.addAttribute("formModel", myData);
 
         return "edit";
@@ -61,5 +58,31 @@ public class MainController {
         myDataRepository.saveAndFlush(myData);
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    public String delete(@PathVariable int id, Model model) {
+        MyData myData = myDataRepository.findById((long)id)
+                .orElseThrow(() -> new NullPointerException());
+        model.addAttribute("formModel", myData);
+
+        return "delete";
+    }
+
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @Transactional(readOnly = false)
+    public String remove(@ModelAttribute("formModel") MyData myData, @RequestParam long id) {
+        myDataRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/find/{name}", method = RequestMethod.GET)
+    public String findName(@ModelAttribute("formModel") MyData myData, @PathVariable String name, Model model) {
+        List<MyData> list = myDataRepository.findByNameLike(name);
+
+        model.addAttribute("datalist",list);
+
+        return "index";
     }
 }
