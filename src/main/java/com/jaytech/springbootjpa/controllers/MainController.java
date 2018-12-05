@@ -47,11 +47,10 @@ public class MainController {
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String edit(@PathVariable int id, Model model) {
-        MyData myData = myDataRepository.findById((long)id).orElse(null);
+        MyData myData = myDataRepository.findById((long)id)
+                .orElseThrow(() -> new NullPointerException());
 
-        if(myData != null) {
-            model.addAttribute("formModel", myData);
-        }
+        model.addAttribute("formModel", myData);
 
         return "edit";
     }
