@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Page</title>
+</head>
+<body>
+    <h1 th:text="${title}">Edit Page</h1>
+
+    <table>
+        <form method="post" th:object="${formModel}" action="/edit">
+            <input type="hidden" name="id" th:value="*{id}"/>
+            <tr>
+                <td><label for="name">이름</label></td>
+                <td><input type="text" name="name" th:value="*{name}"/></td>
+            </tr>
+            <tr>
+                <td><label for="age">연령</label></td>
+                <td><input type="text" name="age" th:value="*{age}"/></td>
+            </tr>
+            <tr>
+                <td><label for="mail">메일</label></td>
+                <td><input type="text" name="mail" th:value="*{mail}"/></td>
+            </tr>
+            <tr>
+                <td><label for="memo">메모</label></td>
+                <td><textarea type="text" name="memo" th:text="*{memo}"
+                              cols="20" rows="5"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"/></td>
+            </tr>
+        </form>
+    </table>
+</body>
+</html>
