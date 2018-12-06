@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
@@ -37,10 +39,20 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     @Transactional(readOnly = false)
-    public String form(@ModelAttribute("formModel") MyData myData) {
-        myDataRepository.saveAndFlush(myData);
+    public String form(@ModelAttribute("formModel") @Validated MyData myData,
+                       BindingResult result,
+                       Model model) {
 
-        return "redirect:/";
+        if(!result.hasErrors()) {
+            myDataRepository.saveAndFlush(myData);
+            return "redirect:/";
+        } else {
+            Iterable<MyData> list =  myDataRepository.findAll();
+            model.addAttribute("datalist", list);
+            model.addAttribute("msg", "error~~~");
+
+            return "index";
+        }
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

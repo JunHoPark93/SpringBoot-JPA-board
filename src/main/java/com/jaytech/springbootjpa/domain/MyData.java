@@ -1,6 +1,10 @@
 package com.jaytech.springbootjpa.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "mydata")
@@ -8,15 +12,20 @@ public class MyData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
+    @NotNull
     private long id;
 
     @Column(length = 50, nullable = false)
+    @NotEmpty
     private String name;
 
     @Column(length = 200, nullable = true)
+    @NotEmpty
     private String mail;
 
     @Column(nullable = true)
+    @Min(value = 0)
+    @Max(value = 150)
     private Integer age;
 
     @Column(nullable = true)

@@ -6,20 +6,29 @@
 </head>
 <body>
     <h1 th:text="#{content.title}">main page</h1>
-
+    <p th:text="${msg}"></p>
     <table>
         <form method="post" th:object="${formModel}" action="/">
             <tr>
                 <td><label for="name">이름</label></td>
-                <td><input type="text" name="name" th:value="*{name}"/></td>
+                <td>
+                    <input type="text" name="name" th:value="*{name}" th:errorclass="err"/>
+                    <div th:if="#{fields.hasErrors('name')}" th:errors="*{name}" th:errorClass="err"></div>
+                </td>
             </tr>
             <tr>
                 <td><label for="age">연령</label></td>
-                <td><input type="text" name="age" th:value="*{age}"/></td>
+                <td>
+                    <input type="text" name="age" th:value="*{age}"/>
+                    <div th:if="#{fields.hassErrors('age')}" th:errors="*{age}" th:errorClass="err"></div>
+                </td>
             </tr>
             <tr>
                 <td><label for="mail">메일</label></td>
-                <td><input type="text" name="mail" th:value="*{mail}"/></td>
+                <td>
+                    <input type="text" name="mail" th:value="*{mail}"/>
+                    <div th:if="#{fields.hassErrors('mail')}" th:errors="*{mail}" th:errorClass="err"></div>
+                </td>
             </tr>
             <tr>
                 <td><label for="memo">메모</label></td>
