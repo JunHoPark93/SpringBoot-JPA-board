@@ -32,8 +32,11 @@
             </tr>
             <tr>
                 <td><label for="memo">메모</label></td>
-                <td><textarea type="text" name="memo" th:text="*{memo}"
-                                cols="20" rows="5"/></td>
+                <td>
+                    <textarea type="text" name="memo" th:text="*{memo}"
+                                cols="20" rows="5"/>
+                    <div th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}" th:errorClass="err"></div>
+                </td>
             </tr>
             <tr>
                 <td></td>

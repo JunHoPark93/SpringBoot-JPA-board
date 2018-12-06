@@ -25,7 +25,7 @@ public class MainController {
         d1.setName("kim");
         d1.setAge(123);
         d1.setMail("fdfdf@df.com");
-        d1.setMemo("This is a memo");
+        d1.setMemo("000-111-1122");
         myDataRepository.saveAndFlush(d1);
     }
 

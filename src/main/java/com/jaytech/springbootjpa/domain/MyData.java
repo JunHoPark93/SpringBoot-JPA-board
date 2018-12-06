@@ -1,5 +1,7 @@
 package com.jaytech.springbootjpa.domain;
 
+import com.jaytech.springbootjpa.Phone;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -29,6 +31,7 @@ public class MyData {
     private Integer age;
 
     @Column(nullable = true)
+    @Phone
     private String memo;
 
     public long getId() {
