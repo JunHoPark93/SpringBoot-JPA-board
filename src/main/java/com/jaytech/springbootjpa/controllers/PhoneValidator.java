@@ -7,9 +7,11 @@ import javax.validation.ConstraintValidatorContext;
 
 public class PhoneValidator implements ConstraintValidator<Phone, String> {
 
+    private boolean onlyNumber = false;
+
     @Override
     public void initialize(Phone constraintAnnotation) {
-
+        onlyNumber = constraintAnnotation.onlyNumber();
     }
 
     @Override
@@ -18,6 +20,10 @@ public class PhoneValidator implements ConstraintValidator<Phone, String> {
             return false;
         }
 
-        return s.matches("[0-9()-]*");
+        if(onlyNumber) {
+            return s.matches("[0-9]*");
+        } else {
+            return s.matches("[0-9()-]*");
+        }
     }
 }

@@ -32,6 +32,7 @@ public class MyData {
 
     @Column(nullable = true)
     @Phone
+    // @Phone(onlyNumber = true) custom한 validator를 설정 할 수 있다.
     private String memo;
 
     public long getId() {
