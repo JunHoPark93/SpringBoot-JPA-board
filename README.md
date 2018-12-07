@@ -66,8 +66,60 @@ saveAndFlush
 3. type주의! (Java의 autoboxing 안됨!)
 
 
+### Custom Annotation 
 
- 
- 
+```java
+@Documented
+@Constraint(validatedBy = PhoneValidator.class)
+@Target({ElementType.METHOD, ElementType.FIELD})
+@Retention(RetentionPolicy.RUNTIME)
+@ReportAsSingleViolation
+public @interface Phone {
+    String message() default "you should input a valid phone number";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    boolean onlyNumber() default false;
+}
+```
+이런 식으로 custom한 annotation을 만들 수 있다. 각 기능을 살펴보자.
+
+```java
+@Documented
+```
+Java Document에 포함 시킨다.
+```java
+@Target
+```
+annotation을 적용할 위치를 설정한다.
+ElementType.PACKAGE : 패키지 선언
+ElementType.TYPE : 타입 선언
+ElementType.ANNOTATION_TYPE : 어노테이션 타입 선언
+ElementType.CONSTRUCTOR : 생성자 선언
+ElementType.FIELD : 멤버 변수 선언
+ElementType.LOCAL_VARIABLE : 지역 변수 선언
+ElementType.METHOD : 메서드 선언
+ElementType.PARAMETER : 전달인자 선언
+ElementType.TYPE_PARAMETER : 전달인자 타입 선언
+ElementType.TYPE_USE : 타입 선언 
+
+```java
+@Retention
+```
+어느 시점까지 annotation이 영향을 미칠지 설정한다.
+RetentionPolicy.SOURCE : 컴파일 전까지만 유효. (컴파일 이후에는 사라짐)
+RetentionPolicy.CLASS : 컴파일러가 클래스를 참조할 때까지 유효.
+RetentionPolicy.RUNTIME : 컴파일 이후에도 JVM에 의해 계속 참조가 가능. (리플렉션 사용)
+
+```java
+@ReportAsSingleViolation
+```
+(report all violations as a single error) 하나의 에러로 반환하게 된다. 여러 개 따로따로 validate진행하려면 삭제해야 한다.
+```java
+@Constraint(validatedBy = PhoneValidator.class)
+```
+커스텀한 Validator class를 등록한다. 
  
  
