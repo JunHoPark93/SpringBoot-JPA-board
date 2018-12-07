@@ -1,5 +1,6 @@
 package com.jaytech.springbootjpa.controllers;
 
+import com.jaytech.springbootjpa.dao.MyDataDaoImpl;
 import com.jaytech.springbootjpa.domain.MyData;
 import com.jaytech.springbootjpa.repositories.MyDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
@@ -19,8 +22,14 @@ public class MainController {
     @Autowired
     private MyDataRepository myDataRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
+    MyDataDaoImpl dao;
+
     @PostConstruct
     public void init() {
+        dao = new MyDataDaoImpl(entityManager);
         MyData d1 = new MyData();
         d1.setName("kim");
         d1.setAge(123);
@@ -31,7 +40,9 @@ public class MainController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(@ModelAttribute("formModel") MyData myData, Model model) {
-        Iterable<MyData> list = myDataRepository.findAll();
+        //Iterable<MyData> list = myDataRepository.findAll();
+
+        List<MyData> list = dao.getAll();
         model.addAttribute("datalist",list);
 
         return "index";

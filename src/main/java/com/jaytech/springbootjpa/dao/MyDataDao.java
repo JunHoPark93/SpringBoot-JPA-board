@@ -1,4 +1,10 @@
 package com.jaytech.springbootjpa.dao;
 
-public interface MyDataDao {
+import java.io.Serializable;
+import java.util.List;
+
+public interface MyDataDao <T> extends Serializable {
+    List<T> getAll();
+    T findById(long id);
+    List<T> findByName(String name);
 }
