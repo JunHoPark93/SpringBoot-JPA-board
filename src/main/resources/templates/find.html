@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Page</title>
+</head>
+<body>
+    <h1 th:text="${title}">find page</h1>
+    <p th:text="${msg}"></p>
+    <table>
+        <form action="/find" method="post">
+        <tr>
+            <td>FIND : </td>
+            <td><input type="text" name="name" size="20" th:value="${value}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit"/></td>
+        </tr>
+        </form>
+    </table>
+    <hr/>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>MAIL</th>
+            <th>AGE</th>
+        </tr>
+        <tr th:each="obj : ${datalist}">
+            <td th:text="${obj.id}"></td>
+            <td th:text="${obj.name}"></td>
+            <td th:text="${obj.mail}"></td>
+            <td th:text="${obj.age}"></td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -36,6 +36,14 @@ public class MainController {
         d1.setMail("fdfdf@df.com");
         d1.setMemo("000-111-1122");
         myDataRepository.saveAndFlush(d1);
+
+        MyData d2 = new MyData();
+        d2.setName("park");
+        d2.setAge(51);
+        d2.setMail("fdfdf@df.com");
+        d2.setMemo("000-111-1122");
+        myDataRepository.saveAndFlush(d2);
+
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -107,5 +115,30 @@ public class MainController {
         model.addAttribute("datalist",list);
 
         return "index";
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String find(Model model) {
+        model.addAttribute("title", "find page");
+        model.addAttribute("msg", "find mydata");
+        model.addAttribute("value", "");
+
+        List<MyData> list = dao.getAll();
+        model.addAttribute("datalist", list);
+        return "find";
+    }
+
+    @RequestMapping(value = "/find", method = RequestMethod.POST)
+    public String search(@RequestParam String name, Model model) {
+        if(name == "") {
+            return "redirect:/find";
+        } else {
+            model.addAttribute("title", "find result");
+            model.addAttribute("msg", "find" + name + "'s result!");
+            model.addAttribute("value", "");
+            List<MyData> list = dao.find(name);
+            model.addAttribute("datalist", list);
+            return "find";
+        }
     }
 }
