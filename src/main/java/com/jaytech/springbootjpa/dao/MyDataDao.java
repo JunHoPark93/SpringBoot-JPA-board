@@ -8,4 +8,5 @@ public interface MyDataDao <T> extends Serializable {
     T findById(long id);
     List<T> findByName(String name);
     List <T> find(String str);
+    List <T> findByAge(int min, int max);
 }

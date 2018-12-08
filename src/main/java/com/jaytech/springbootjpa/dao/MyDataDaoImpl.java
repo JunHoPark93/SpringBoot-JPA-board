@@ -65,4 +65,12 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
         List<MyData> list = query.getResultList();
         return list;
     }
+
+    @Override
+    public List<MyData> findByAge(int min, int max) {
+        return entityManager.createNamedQuery("findByAge")
+                        .setParameter("min", min)
+                        .setParameter("max", max)
+                        .getResultList();
+    }
 }
