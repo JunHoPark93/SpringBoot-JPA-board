@@ -45,7 +45,7 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
 
     @Override
     public List<MyData> find(String str) {
-        String queryStr = "from MyData where id = :fid or name like :fname or mail like :fmail";
+        String queryStr = "from MyData where id = ?1 or name like ?2 or mail like ?3";
         Long fid = 0L;
 
         try {
@@ -54,9 +54,9 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
             // handle
         }
 
-        Query query = entityManager.createQuery(queryStr).setParameter("fid", fid)
-                                .setParameter("fname", "%" + str + "%")
-                                .setParameter("fmail", str + "@%");
+        Query query = entityManager.createQuery(queryStr).setParameter(1, fid)
+                                .setParameter(2, "%" + str + "%")
+                                .setParameter(3, str + "@%");
 
         List<MyData> list = query.getResultList();
         return list;

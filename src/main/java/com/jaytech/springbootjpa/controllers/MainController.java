@@ -44,6 +44,13 @@ public class MainController {
         d2.setMemo("000-111-1122");
         myDataRepository.saveAndFlush(d2);
 
+        MyData d3 = new MyData();
+        d3.setName("pa");
+        d3.setAge(51);
+        d3.setMail("fdfdf@df.com");
+        d3.setMemo("000-111-1122");
+        myDataRepository.saveAndFlush(d3);
+
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
