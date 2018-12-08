@@ -45,7 +45,7 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
 
     @Override
     public List<MyData> find(String str) {
-        String queryStr = "from MyData where id = ?1 or name like ?2 or mail like ?3";
+        //String queryStr = "from MyData where id = ?1 or name like ?2 or mail like ?3";
         Long fid = 0L;
 
         try {

@@ -51,13 +51,18 @@ public class MainController {
         d3.setMemo("000-111-1122");
         myDataRepository.saveAndFlush(d3);
 
+        MyData d4 = new MyData();
+        d4.setName("april");
+        d4.setAge(34);
+        d4.setMail("fdfdf@df.com");
+        d4.setMemo("000-111-1122");
+        myDataRepository.saveAndFlush(d4);
+
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(@ModelAttribute("formModel") MyData myData, Model model) {
-        //Iterable<MyData> list = myDataRepository.findAll();
-
-        List<MyData> list = dao.getAll();
+        List<MyData> list = myDataRepository.findAllOrderByName();
         model.addAttribute("datalist",list);
 
         return "index";
