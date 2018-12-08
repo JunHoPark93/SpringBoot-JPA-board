@@ -54,9 +54,13 @@ public class MyDataDaoImpl implements MyDataDao<MyData> {
             // handle
         }
 
-        Query query = entityManager.createQuery(queryStr).setParameter(1, fid)
-                                .setParameter(2, "%" + str + "%")
-                                .setParameter(3, str + "@%");
+        Query query = entityManager
+                    .createNamedQuery("findWithName")
+                    .setParameter("fname", "%" + str + "%");
+
+//        Query query = entityManager.createQuery(queryStr).setParameter(1, fid)
+//                                .setParameter(2, "%" + str + "%")
+//                                .setParameter(3, str + "@%");
 
         List<MyData> list = query.getResultList();
         return list;

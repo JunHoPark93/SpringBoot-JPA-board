@@ -10,6 +10,10 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "mydata")
+@NamedQuery(
+        name = "findWithName",
+        query = "from MyData where name like :fname"
+)
 public class MyData {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
