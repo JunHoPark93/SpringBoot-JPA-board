@@ -121,5 +121,38 @@ RetentionPolicy.RUNTIME : 컴파일 이후에도 JVM에 의해 계속 참조가 
 @Constraint(validatedBy = PhoneValidator.class)
 ```
 커스텀한 Validator class를 등록한다. 
- 
- 
+
+
+@PersistenceContext
+EntityManager entityManager
+
+스프링 부트의 경우 EntityManager실행시에 자동으로 bean등록하는데 이 때 사용하는 annotation이 @PersistenceContext이다.
+
+
+엔티티를 조회할때, 이미 영속 컨텍스트에서 관리되고 있는 엔티티인지 확인을 먼저합니다. 만일 관리되고 있는 엔티티일 경우 DB 조회 없이 1차캐시에서 해당 결과를 리턴해줍니다. 만일 아직 영속화 되지 않은 엔티티라면 DB에서 조회를 해와서 1차 캐시에 저장을 하며 해당 엔티티를 영속화 시킨 후 결과를 반환해 줍니다.
+
+
+### Query
+1. ?를 사용한 매개변수 쿼리
+```java
+String queryStr = "from MyData where id = ?1 or name like ?2 or mail like ?3";
+
+Query query = entityManager.createQuery(queryStr).setParameter(1, fid)
+                                .setParameter(2, "%" + str + "%")
+                                .setParameter(3, str + "@%");
+
+```
+
+2. Named Query
+
+```java
+@Entity
+@Table(name = "mydata")
+@NamedQuery(
+        name = "findWithName",
+        query = "from MyData where name like :fname"
+)
+public class MyData {}
+```
+
+NamedQuery
