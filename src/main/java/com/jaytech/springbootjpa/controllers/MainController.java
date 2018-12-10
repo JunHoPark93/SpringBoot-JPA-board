@@ -63,8 +63,9 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(@ModelAttribute("formModel") MyData myData, Model model) {
         //List<MyData> list = myDataRepository.findAllOrderByName();
-        //List<MyData> list = dao.findByAge(50, 100);
-        List<MyData> list = myDataRepository.findByAge(30, 40);
+        //List<MyData> list = dao.findByAge(50, 100); // for check
+        //List<MyData> list = myDataRepository.findByAge(30, 40); // for check
+        List<MyData> list = dao.getAll();
         model.addAttribute("datalist",list);
 
         return "index";
