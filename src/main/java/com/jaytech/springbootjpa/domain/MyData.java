@@ -7,6 +7,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "mydata")
@@ -44,6 +45,10 @@ public class MyData {
     @Phone
     // @Phone(onlyNumber = true) custom한 validator를 설정 할 수 있다.
     private String memo;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    private List<MsgData> msgData;
 
     public long getId() {
         return id;
@@ -83,5 +88,13 @@ public class MyData {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public List<MsgData> getMsgData() {
+        return msgData;
+    }
+
+    public void setMsgData(List<MsgData> msgData) {
+        this.msgData = msgData;
     }
 }
