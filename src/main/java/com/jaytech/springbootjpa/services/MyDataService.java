@@ -20,8 +20,8 @@ public class MyDataService {
         return entityManager.createQuery("from MyData").getResultList();
     }
 
-    public MyData get(int id) {
-        return (MyData)entityManager.createQuery("from MyData where id :id")
+    public MyData get(long id) {
+        return (MyData)entityManager.createQuery("from MyData where id = :id")
                 .setParameter("id", id)
                 .getSingleResult();
     }

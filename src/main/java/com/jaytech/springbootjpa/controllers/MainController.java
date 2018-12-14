@@ -151,4 +151,10 @@ public class MainController {
             return "find";
         }
     }
+
+    @RequestMapping(value = "/rest", method = RequestMethod.GET)
+    public String ajax() {
+
+        return "ajaxpage";
+    }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajax Page</title>
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            var num = [[${param.id[0]}]];
+            $.get("/rest/" + num, null, callback);
+        });
+
+        function callback(result) {
+            $("#obj").append('<li>id :' + result.id + '</li>');
+            $("#obj").append('<li>name :' + result.name + '</li>');
+            $("#obj").append('<li>mail :' + result.mail + '</li>');
+            $("#obj").append('<li>age :' + result.age + '</li>');
+            $("#obj").append('<li>memo :' + result.memo + '</li>');
+        }
+    </script>
+</head>
+<body>
+
+<ol id="obj"></ol>
+
+</body>
+</html>
